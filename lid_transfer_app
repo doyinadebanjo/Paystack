@@ -1,0 +1,220 @@
+<html>
+  <head>
+    <title>Lid Stores Transfer App</title>
+  </head>
+  <body>
+
+      <div style="background-color:#0F0F8C ;height:45px">
+          <h1 style="color: white">LID STORE SUPPLIER TRANSACTIONS</h1>
+      </div>
+      <div>
+          <button id="addTrans">&emsp; Add Transaction &emsp;</button>
+      </div>
+      <div>
+          <table id="detailsTable">
+              <thead>
+                  <tr style="background-color:rgba(201, 196, 196, 0.86)">
+                      <th style="width: 150px;">Transfer Amount</th>
+                      <th style="width: 250px;">Transfer Note (Optional)</th>
+                      <th style="width: 250px;">Transfer Reference (Optional)</th>
+                      <th style="width: 250px;">Recipient Code</th>
+                      <th style="width: 250px;">Bank Code or Slug</th>
+                      <th style="width: 250px;">Account Number</th>
+                      <th style="width: 120px">Account Name (Optional)</th>
+                      <th style="width: 120px">Email Address (Optional)</th>
+                  </tr>
+
+              </thead>
+              <tbody></tbody>
+          </table>
+      </div>
+
+      <div id="myModal" class="modal">
+
+          <div class="modal-content">
+
+              <div class="modal-header">
+
+                  <span class="close">&times;</span>
+                  <h3> Add Supplier Details</h3>
+              </div>
+
+              <div class="modal-body">
+                  <table style="padding: 28px 50px">
+                      <tr>
+                        <p>The fields marked * are required</p>
+                      </tr>
+                      <tr>
+                          <td style="width:150px">Transfer Amount*:</td>
+                          <td><input type="text" name="tamt" id="transamt" style="width: -webkit-fill-available"></td>
+                      </tr>
+                      <tr>
+                          <td style="width:150px">Transfer Note (Optional):</td>
+                          <td><input type="text" name="tnote" id="transnote" style="width: -webkit-fill-available"></td>
+                      </tr>
+                      <tr>
+                          <td style="width:150px">Transfer Reference (Optional):</td>
+                          <td><input type="text" name="tref" id="transref" style="width: -webkit-fill-available"></td>
+                      </tr>
+                      <tr>
+                          <td style="width:150px">Recipient Code:</td>
+                          <td><input type="text" name="rcode" id="repcode" style="width: -webkit-fill-available"></td>
+                      </tr>
+                      <tr>
+                          <td style="width:150px">Bank Code or Slug*:</td>
+                          <td><input type="text" name="bcode" id="bankcode" style="width: -webkit-fill-available"></td>
+                      </tr>
+                      <tr>
+                          <td style="width:150px">Account Number*:</td>
+                          <td><input type="text" name="anum" id="accno" style="width: -webkit-fill-available"></td>
+                      </tr>
+                      <tr>
+                          <td style="width:150px">Account Name (Optional):</td>
+                          <td><input type="text" name="aname" id="accname" style="width: -webkit-fill-available"></td>
+                      </tr>
+                      <tr>
+                          <td style="width:150px">Email Address (Optional):</td>
+                          <td><input type="text" name="email" id="emailadd" style="width: -webkit-fill-available"></td>
+                      </tr>
+
+                  </table>
+              </div>
+
+              <div class="modal-footer">
+                  <button type="submit" value="submit" style="float: left;" onclick="addDetails()">SUBMIT</button>
+                  <br>
+                  <br>
+                  <br>
+              </div>
+
+          </div>
+      </div>
+      <div>
+          <button id="concsv">&emsp; Export to CSV File &emsp;</button>
+      </div>
+      <script>
+          var detail1 = [];
+          var detail2 = [];
+          var detail3 = [];
+          var detail4 = [];
+          var detail5 = [];
+          var detail6 = [];
+          var detail7 = [];
+          var detail8 = [];
+
+
+          // Get the modal
+          var modal = document.getElementById('myModal');
+
+          // Get the button that opens the modal
+          var addTrans = document.getElementById("addTrans");
+
+          // Get the <span> element that closes the modal
+          var span = document.getElementsByClassName("close")[0];
+
+          // When the user clicks the button, open the modal
+          addTrans.onclick = function () {
+
+            modal.style.display = "block";
+          }
+
+          // When the user clicks on <span> (x), close the modal
+          span.onclick = function () {
+              modal.style.display = "none";
+          }
+
+          // When the user clicks anywhere outside of the modal, close it
+          window.onclick = function (event) {
+              if (event.target == modal) {
+                  modal.style.display = "none";
+              }
+          }
+          var rowCount = 1;
+          function addDetails() {
+              detail1.push(document.getElementById("transamt").value);
+              detail2.push(document.getElementById("transnote").value);
+              detail3.push(document.getElementById("transref").value);
+              detail4.push(document.getElementById("repcode").value);
+              detail5.push(document.getElementById("bankcode").value);
+              detail6.push(document.getElementById("accno").value);
+              detail7.push(document.getElementById("accname").value);
+              detail8.push(document.getElementById("emailadd").value);
+
+              var table = document.getElementById("detailsTable");
+              var row = table.insertRow(rowCount);
+              var cell1 = row.insertCell(0);
+              var cell2 = row.insertCell(1);
+              var cell3 = row.insertCell(2);
+              var cell4 = row.insertCell(3);
+              var cell5 = row.insertCell(4);
+              var cell6 = row.insertCell(5);
+              var cell7 = row.insertCell(6);
+              var cell8 = row.insertCell(7);
+              cell1.innerHTML = detail1[rowCount - 1];
+              cell2.innerHTML = detail2[rowCount - 1];
+              cell3.innerHTML = detail3[rowCount - 1];
+              cell4.innerHTML = detail4[rowCount - 1];
+              cell5.innerHTML = detail5[rowCount - 1];
+              cell6.innerHTML = detail6[rowCount - 1];
+              cell7.innerHTML = detail7[rowCount - 1];
+              cell8.innerHTML = detail8[rowCount - 1];
+
+              rowCount++;
+              modal.style.display = "none";
+          }
+
+          function download_csv(csv, filename) {
+            var csvFile;
+            var downloadLink;
+
+            // CSV FILE
+            csvFile = new Blob([csv], {type: "text/csv"});
+
+            // Download link
+            downloadLink = document.createElement("a");
+
+            // File name
+            downloadLink.download = filename;
+
+            // We have to create a link to the file
+            downloadLink.href = window.URL.createObjectURL(csvFile);
+
+            // Make sure that the link is not displayed
+            downloadLink.style.display = "none";
+
+            // Add the link to your DOM
+            document.body.appendChild(downloadLink);
+
+            // Lanzamos
+            downloadLink.click();
+          }
+
+          function export_table_to_csv(html, filename) {
+  	        var csv = [];
+  	        var rows = document.querySelectorAll("table tr");
+
+            for (var i = 0; i < rows.length; i++) {
+  		      var row = [], cols = rows[i].querySelectorAll("td, th");
+
+              for (var j = 0; j < cols.length; j++)
+                row.push(cols[j].innerText);
+
+  		        csv.push(row.join(","));
+  	         }
+
+             // Download CSV
+            download_csv(csv.join("\n"), filename);
+          }
+
+        document.querySelector("concsv").addEventListener("click", function () {
+        var html = document.querySelector("detailsTable").outerHTML;
+  	    export_table_to_csv(html, "Supplier_trans.csv");
+        });
+
+
+
+
+      </script>
+  </body>
+
+</html>
